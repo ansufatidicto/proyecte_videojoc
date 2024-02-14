@@ -27,19 +27,16 @@ $data = json_decode($json_content, true);
 // Recorrer el array y ejecutar la inserción en la base de datos
 //$data_llancament = date('Y-m-d', strtotime($registro['Llançament']));
 
+// Recorrer el array y ejecutar la inserción en la base de datos
 foreach ($data as $registro) {
     // Suponiendo que tienes un archivo JSON con campos específicos
     $nom = $registro['Nom'];
     $data_llancament = $registro['Llançament'];
-   // var_dump($data_llancament);
-    $pegi = $registro['pegi'];
-    $id_desenvolupador = $registro['id_desenvolupador'];
-    $id_plataforma = $registro['id_plataforma'];
-    // Ejecutara consulta de inserción
+
+    // Ejecutar la consulta de inserción
     $consulta = "INSERT INTO videojoc (id, nom, data_llancament, pegi, id_desenvolupador, id_plataforma) VALUES (NULL, '$nom', '$data_llancament', NULL, NULL, NULL)";
-}
+
     try {
-        // ...
         if ($conn->query($consulta) === TRUE) {
             echo "Registro insertado correctamente.\n";
         } else {
@@ -48,9 +45,8 @@ foreach ($data as $registro) {
     } catch (PDOException $ex) {
         echo "Excepción capturada: " . $ex->getMessage() . "\n";
     }
-
+}
 
 // Cerrar la conexión
 $conn = null;
 
-?>
