@@ -11,7 +11,7 @@ try {
     // set the PDO error mode to exception
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     echo "Connected successfully";
-} catch(PDOException $e) {
+} catch (PDOException $e) {
     echo "Connection failed2: " . $e->getMessage();
 }
 
@@ -25,31 +25,36 @@ $json_content = file_get_contents($ruta_json);
 $data = json_decode($json_content, true);
 
 // Recorrer el array y ejecutar la inserción en la base de datos
-//$data_llancament = date('Y-m-d', strtotime($registro['Llançament']));
-
-// Recorrer el array y ejecutar la inserción en la base de datos
 foreach ($data as $registro) {
     // Suponiendo que tienes un archivo JSON con campos específicos
     $nom_desenvolupador = $registro['Desenvolupador'];
 
-    // Ejecutar la consulta de inserción
-    $consulta_desenvolupador = "INSERT INTO desenvolupador (id, nom) VALUES (NULL, '$nom_desenvolupador')";
-    $last_desenvolup = $conn->lastInsertId();
     try {
+        // Iniciar una transacción
+        $conn->beginTransaction();
+
+        // Ejecutar la consulta de inserción para Desenvolupador
+        $consulta_desenvolupador = "INSERT INTO desenvolupador (id, nom) VALUES (NULL, '$nom_desenvolupador')";
         $conn->exec($consulta_desenvolupador);
+        $last_desenvolup = $conn->lastInsertId();
+
         $nom_videojoc = $registro['Nom'];
         $data_llancament = $registro['Llançament'];
-        $id_desenvolupador = $last_desenvolup;
-        
+
         // Ejecutar la consulta de inserción para Videojoc
-        $consulta_videojoc = "INSERT INTO videojoc (nom, data_llancament, pegi, id_desenvolupador) VALUES ('$nom_videojoc', '$data_llancament', NULL, '$id_desenvolupador')";
-        
+        $consulta_videojoc = "INSERT INTO videojoc (nom, data_llancament, pegi, id_desenvolupador) VALUES ('$nom_videojoc', '$data_llancament', NULL, '$last_desenvolup')";
         $conn->exec($consulta_videojoc);
+
+        // Confirmar la transacción
+        $conn->commit();
 
         echo "Registro insertado correctamente.\n";
     } catch (PDOException $ex) {
+        // Revertir la transacción en caso de error
+        $conn->rollBack();
         echo "Excepción capturada: " . $ex->getMessage() . "\n";
     }
 }
 
 $conn = null;
+?>
