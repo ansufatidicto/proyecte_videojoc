@@ -13,6 +13,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" and $_GET["nom"] != null) {
     // Fetch los resultados como un array asociativo
     $arrayValues = $resultadoConsulta->fetchAll(PDO::FETCH_ASSOC);
     // Mostrar la tabla solo si hay resultados
+
 if (!empty($arrayValues)) {
     echo "<table width=\"100%\">\n";
     echo "<tr>\n";
@@ -30,6 +31,7 @@ if (!empty($arrayValues)) {
         echo "</tr>\n";
     }
     echo "</table>";
+
 }
   }
 
@@ -52,8 +54,8 @@ $arrayValues = $resultadoConsulta->fetchAll(PDO::FETCH_ASSOC);
     <input type="submit" value="Buscar">
 </form>
 
-<form action="mod_desenvolupador.php" method="get">
-<input type="submit" value="modificar">
-<form action="eliminar_desenvolupador.php" method="get">
-<input type="submit" value="eliminar">
+</form>
+<form action="eliminar_videojoc.php" method="GET">
+eliminar: <input type="text" name="nom">
+<input type="submit" value="eliminar2">
 </form>
