@@ -1,19 +1,19 @@
-
 <?php
 class desenvolupador {
 
-  public function connectar_bd ($servername,$username,$password)
+  public function connectar_bd($servername, $username, $password)
   {
-    try {
-      $conn = new PDO("mysql:host=$servername;dbname=videojocs", $username, $password);
-      // set the PDO error mode to exception
-      $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-      echo "Connected successfully";
-    } catch(PDOException $e) {
-      echo "Connection failed2: " . $e->getMessage();
-    }
-    return $conn;
-}
+      try {
+          $conn = new PDO("mysql:host=$servername;dbname=videojocs", $username, $password);
+          // set the PDO error mode to exception
+          $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+          // echo "Connected successfully";
+      } catch (PDOException $e) {
+          echo "Connection failed: " . $e->getMessage();
+      }
+      return $conn;
+  }
+  
 public function inserir ($servername, $username, $password, $nom)
 {
     $conn = $this->connectar_bd($servername,$username,$password);
@@ -31,20 +31,22 @@ public function inserir ($servername, $username, $password, $nom)
 }
 
 
-public function consultaTots ($servername, $username,$password)
+public function consultaTots($servername, $username, $password)
 {
-    $conn = $this->connectar_bd($servername,$username,$password);
+    $conn = $this->connectar_bd($servername, $username, $password);
 
     try {
-       $stmt = $conn->prepare("SELECT * FROM desenvolupador");
-       $result = $stmt->execute();
-       $conn=null;
-       return($stmt);
+        $stmt = $conn->prepare("SELECT * FROM desenvolupador");
+        $stmt->execute();
+        return $stmt;  // Devuelve el objeto PDOStatement
+    } catch (PDOException $e) {
+        echo "Error: " . $e->getMessage();
+    } finally {
+        // Cierra la conexión aquí después de realizar la consulta
+        $conn = null;
     }
+}
 
-    catch(PDOException $e) {
-    echo "Error: " . $e->getMessage();
-    }
 }
 
 function modificar ($servername,$username,$password, $id, $nom, $llinatge1,$llinatge2,$email)
