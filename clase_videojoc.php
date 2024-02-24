@@ -19,7 +19,9 @@ public function inserir ($servername,$username,$password,$nom, $data_llancament,
     $conn = $this->connectar_bd($servername,$username,$password);
       try
       {
-        $sql = "INSERT INTO 'videojoc' ('id', 'nom', 'data_llancament', 'pegi', 'id_desenvolupador', 'id_plataforma') VALUES (NULL, '$nom', '$data_llancament', '$pegi', '$id_desenvolupador', '$id_plataforma');";
+        $sql = "INSERT INTO videojoc (id, nom, data_llancament, pegi, id_desenvolupador, id_plataforma)
+        VALUES (NULL, '$nom', '$data_llancament', '$pegi', '$id_desenvolupador', '$id_plataforma');";
+
         echo $sql;
         // use exec() because no results are returned
         $conn->exec($sql);
