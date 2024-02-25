@@ -1,8 +1,15 @@
+<?php
+// Start the session
+session_start();
+?>
 <html>
-<link href="css.css" rel="stylesheet" />
+<link href="index.css" rel="stylesheet" />
 <body>
 
 <?php
+
+include "index.php";
+mostrarMenu();
 include "dades_connexio_BD.php";
 include "clase_videojoc.php";
 include "clase_desenvolupador.php";
@@ -58,7 +65,12 @@ echo "<br>";
 
 
 id_plataforma: <input type="text" name="id_plataforma"><br>
-    <input type="submit">
+
+<?php
+    if (isset($_SESSION['nom']) && isset($_SESSION['contrasenya'])) {
+        echo '<input type="submit">';
+    }
+    ?>
 </form>
 
 </body>
