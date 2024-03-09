@@ -1,5 +1,6 @@
+
 <?php
-class genere {
+class plataforma {
 
   public function connectar_bd ($servername,$username,$password)
   {
@@ -18,7 +19,7 @@ public function inserir ($servername, $username, $password, $nom)
     $conn = $this->connectar_bd($servername,$username,$password);
       try
       {
-        $sql = "INSERT INTO genere (id, nom) VALUES (NULL, '$nom');";
+        $sql = "INSERT INTO plataforma (id, nom) VALUES (NULL, '$nom');";
         echo $sql;
         // use exec() because no results are returned
         $conn->exec($sql);
@@ -35,10 +36,10 @@ public function consultaTots ($servername, $username,$password)
     $conn = $this->connectar_bd($servername,$username,$password);
 
     try {
-       $stmt = $conn->prepare("SELECT * FROM client");
+       $stmt = $conn->prepare("SELECT * FROM plataforma");
        $result = $stmt->execute();
        $conn=null;
-       return($stmt); 
+       return($stmt);
     }
 
     catch(PDOException $e) {

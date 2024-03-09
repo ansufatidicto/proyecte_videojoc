@@ -1,3 +1,4 @@
+
 <?php
 class genere {
 
@@ -35,10 +36,10 @@ public function consultaTots ($servername, $username,$password)
     $conn = $this->connectar_bd($servername,$username,$password);
 
     try {
-       $stmt = $conn->prepare("SELECT * FROM client");
+       $stmt = $conn->prepare("SELECT * FROM genere");
        $result = $stmt->execute();
        $conn=null;
-       return($stmt); 
+       return($stmt);
     }
 
     catch(PDOException $e) {

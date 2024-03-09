@@ -1,5 +1,5 @@
 <?php
-class genere {
+class desenvolupador {
 
   public function connectar_bd ($servername,$username,$password)
   {
@@ -18,7 +18,7 @@ public function inserir ($servername, $username, $password, $nom)
     $conn = $this->connectar_bd($servername,$username,$password);
       try
       {
-        $sql = "INSERT INTO genere (id, nom) VALUES (NULL, '$nom');";
+        $sql = "INSERT INTO desenvolupador (id, nom) VALUES (NULL, '$nom');";
         echo $sql;
         // use exec() because no results are returned
         $conn->exec($sql);

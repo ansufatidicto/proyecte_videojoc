@@ -1,3 +1,7 @@
+<?php
+// Start the session
+session_start();
+?>
 <html>
 <link rel="stylesheet" href="css/index.css">
 <body>
@@ -23,20 +27,19 @@
 <br>
 <nav>
 <ul>
-<li><a href="form_plataforma.php">MOSTRAR</a></li>
-<li><a href="consulta_plataforma_vid.php">CONSULTAR</a></li>
-<li><a href="mod_plataforma.php">MODIFICAR</a></li>
+<li><a href="form_mostrar_videojoc.php">MOSTRAR</a></li>
+<li><a href="form_videojoc.php">INTRODUIR</a></li>
+<li><a href="consulta_videojoc.php">CONSULTAR</a></li>
+<li><a href="mod_videojoc.php">MODIFICAR</a></li>
 </ul>
 </nav>
-<h1> Formulari Plataforma </h1>
-
 <?php
-
 include "dades_connexio_BD.php";
-include "clase_mostrar_plataforma.php";
+include "clase_videojoc.php";
 
-$plataformas = new plataforma();
-$resultadoConsulta = $plataformas->consultaTots($servername, $username, $password, $nom);
+$videojocs = new videojoc();
+$resultadoConsulta = $videojocs->consultaTots($servername, $username, $password);
+// Fetch los resultados como un array asociativo
 $arrayValues = $resultadoConsulta->fetchAll(PDO::FETCH_ASSOC);
 
 echo "<table width=\"100%\">\n";
@@ -53,4 +56,16 @@ foreach ($arrayValues as $row) {
     echo "</tr>\n";
 }
 echo "</table>";
+?>
+<?php
+    if (isset($_SESSION['nom']) && isset($_SESSION['contrasenya'])) {
+       echo '<form action="eliminar_videojoc.php" method="GET">';
+       echo 'eliminar(id): <input type="text" name="id">';
+       echo '<input type="submit" value="eliminar">';
+       echo '</form>';
+
+       echo '<form action="mod_videojoc.php" method="GET">';
+       echo '<input type="submit" value="modifica">';
+       echo '</form>';
+    }
 ?>

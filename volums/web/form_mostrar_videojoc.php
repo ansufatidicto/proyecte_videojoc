@@ -23,20 +23,22 @@
 <br>
 <nav>
 <ul>
-<li><a href="form_plataforma.php">MOSTRAR</a></li>
-<li><a href="consulta_plataforma_vid.php">CONSULTAR</a></li>
-<li><a href="mod_plataforma.php">MODIFICAR</a></li>
+<li><a href="form_mostrar_videojoc.php">MOSTRAR</a></li>
+<li><a href="form_videojoc.php">INTRODUIR</a></li>
+<li><a href="consulta_videojoc.php">CONSULTAR</a></li>
+<li><a href="mod_videojoc.php">MODIFICAR</a></li>
 </ul>
 </nav>
-<h1> Formulari Plataforma </h1>
+
+<h1> Formulari Videojoc </h1>
 
 <?php
 
 include "dades_connexio_BD.php";
-include "clase_mostrar_plataforma.php";
+include "clase_mostrar_videojoc.php";
 
-$plataformas = new plataforma();
-$resultadoConsulta = $plataformas->consultaTots($servername, $username, $password, $nom);
+$videojocs = new videojoc();
+$resultadoConsulta = $videojocs->consultaTots($servername, $username, $password, $nom);
 $arrayValues = $resultadoConsulta->fetchAll(PDO::FETCH_ASSOC);
 
 echo "<table width=\"100%\">\n";
